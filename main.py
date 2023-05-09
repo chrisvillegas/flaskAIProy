@@ -19,12 +19,12 @@ app = Flask(__name__)
 run_with_ngrok(app)
 
 @app.route("/")
-def.initial():
+def initial():
     return render_template("index.html")
 
-@app.route("/submit-prompt", methouds=["POST"])
+@app.route("/submit-prompt", methods=["POST"])
 def generate_image():
-        prompt = request.from["prompt-input"]
+        prompt = request.form["prompt-input"]
 
         image = pipe(prompt).images[0]
 
