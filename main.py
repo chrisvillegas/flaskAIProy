@@ -1,14 +1,14 @@
-from flask import Flask, render_template, request
 from flask_ngrok import run_with_ngrok
+from flask import Flask, render_template, request
 
 import torch
-from diffusers import StableDifussionPipeline
+from diffusers import StableDiffussionPipeline
 
 import base64
 from io import BytesIO
 
 #load model
-pipe = StableDifussionPipeline.from_pretrained(
+pipe = StableDiffussionPipeline.from_pretrained(
     "runwayml/stable-diffusion-v1-5", revision = "fp16", torch_dtype=torch.float16
 )
 
@@ -28,7 +28,7 @@ def generate_image():
 
         image = pipe(prompt).images[0]
 
-        buffered =  BytesIO()
+        buffered = BytesIO()
         image.save(buffered, format = "PNG")
         img_str = base64.b64encode(buffered.getvalue())
         img_str = "data:image/png;base64," + str(img_str)[2:-1]
